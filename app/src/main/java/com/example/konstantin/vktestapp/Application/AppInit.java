@@ -1,7 +1,11 @@
-package com.example.konstantin.vktestapp;
+package com.example.konstantin.vktestapp.Application;
 
 import android.app.Application;
 
+import com.example.konstantin.vktestapp.Dagger.AppComponent;
+import com.example.konstantin.vktestapp.Dagger.AppModule;
+import com.example.konstantin.vktestapp.Dagger.DaggerAppComponent;
+import com.example.konstantin.vktestapp.Dagger.PresentersModule;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKAccessTokenTracker;
 import com.vk.sdk.VKSdk;
@@ -11,6 +15,8 @@ import com.vk.sdk.VKSdk;
  */
 
 public class AppInit extends Application {
+
+    private static AppComponent component;
 
     // обработка валидности токена (слетает, если пользователь поменял пароль или нажал кнопку
     // выйти на всех устройствах)
@@ -23,10 +29,26 @@ public class AppInit extends Application {
         }
     };
 
+    public static AppComponent getComponent() {
+        return component;
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
+
+        component = buildComponent();
+
+        // Инициализация VK SDK
         VKSdk.initialize(this);
         vkAccessTokenTracker.startTracking();
+    }
+
+    protected AppComponent buildComponent() {
+        return DaggerAppComponent
+                .builder()
+                .appModule(new AppModule(this.getApplicationContext()))
+                .presentersModule(new PresentersModule())
+                .build();
     }
 }

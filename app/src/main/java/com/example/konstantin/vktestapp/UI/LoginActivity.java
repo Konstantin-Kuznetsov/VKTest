@@ -1,4 +1,4 @@
-package com.example.konstantin.vktestapp;
+package com.example.konstantin.vktestapp.UI;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -8,6 +8,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.Toast;
 
+import com.example.konstantin.vktestapp.R;
 import com.vk.sdk.VKAccessToken;
 import com.vk.sdk.VKCallback;
 import com.vk.sdk.VKScope;
@@ -51,7 +52,7 @@ public class LoginActivity extends AppCompatActivity {
 
         if (shouldLogout) {
             VKSdk.logout();
-            Toast.makeText(this, "Logged out!" + VKSdk.isLoggedIn(), Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "Logged out!", Toast.LENGTH_LONG).show();
         } else {
             // проверка залогинен ли пользователь, и, если да - сразу переход на рабочую активити
             if (VKSdk.wakeUpSession(this)) startActivity(openWorkActivity);
@@ -72,6 +73,9 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG, "Пользователь успешно авторизовался");
                 // после авторизаци переходим на рабочую активити
                 startActivity(openWorkActivity);
+
+                // токен в лог
+                Log.i(TAG, VKAccessToken.currentToken().accessToken);
             }
             @Override
             public void onError(VKError error) {

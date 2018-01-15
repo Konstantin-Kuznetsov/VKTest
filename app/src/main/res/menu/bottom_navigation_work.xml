@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/fr_1"
+          android:title="@string/map"
+          android:icon="@drawable/ic_explore_black_24dp"/>
+
+    <item android:id="@+id/fr_2"
+          android:title="@string/groups"
+          android:icon="@drawable/ic_group_black_24dp"/>
+
+    <item android:id="@+id/fr_3"
+          android:title="@string/transitions"
+          android:icon="@drawable/ic_transfer_within_a_station_black_24dp"/>
+
+</menu>
