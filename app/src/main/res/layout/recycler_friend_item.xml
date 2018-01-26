@@ -19,22 +19,20 @@
         android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/dateOfBirth"
-            android:layout_width="0dp"
-            android:layout_height="22dp"
-            android:layout_marginBottom="8dp"
+            android:id="@+id/city"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:text="дата рождения"
+            android:layout_marginTop="8dp"
+            android:text="город"
             android:textColor="@color/vk_share_blue_color"
-            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageUserAvatar"
             app:layout_constraintTop_toBottomOf="@+id/fullName"/>
 
         <TextView
             android:id="@+id/fullName"
-            android:layout_width="0dp"
-            android:layout_height="21dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
             android:layout_marginTop="8dp"
             android:text="полное имя"
@@ -53,6 +51,41 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/ic_group_black_24dp"/>
+
+        <TextView
+            android:id="@+id/birthdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="дата рождения"
+            android:textColor="@color/vk_share_blue_color"
+            app:layout_constraintStart_toEndOf="@+id/imageUserAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/city"/>
+
+        <TextView
+            android:id="@+id/occupation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:textColor="@color/vk_share_blue_color"
+            android:text="занятость"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageUserAvatar"
+            app:layout_constraintTop_toBottomOf="@+id/birthdate"/>
+
+        <TextView
+            android:id="@+id/hometown"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:layout_marginTop="8dp"
+            android:text="родной город"
+            android:textColor="@color/vk_share_blue_color"
+            app:layout_constraintStart_toEndOf="@+id/city"
+            app:layout_constraintTop_toBottomOf="@+id/fullName"/>
 
     </android.support.constraint.ConstraintLayout>
 

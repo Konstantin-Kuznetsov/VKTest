@@ -11,9 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.konstantin.vktestapp.Application.AppInit;
+import com.example.konstantin.vktestapp.POJO.UserData;
 import com.example.konstantin.vktestapp.R;
 import com.squareup.picasso.Picasso;
-import com.vk.sdk.api.model.VKApiUserFull;
 
 import java.util.List;
 
@@ -27,12 +27,12 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
 
     @Inject Context context;
 
-    private List<VKApiUserFull> friendsListData;
+    private List<UserData> friendsListData;
     private OnItemClickListener listener;
     private static final String TAG = "VKTestApp";
 
     public interface OnItemClickListener { // интерфейс листенера
-        void onItemClick(VKApiUserFull item);
+        void onItemClick(UserData item);
     }
 
     public FriendsListAdapter(OnItemClickListener listener) {
@@ -41,7 +41,7 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     }
 
     // передаем массив с актуальными данными
-    public void setOrUpdateDataset (@NonNull List<VKApiUserFull> friendsList) {
+    public void setOrUpdateDataset (@NonNull List<UserData> friendsList) {
         this.friendsListData = friendsList;
         Log.i(TAG, "Список контактов обновлен: " + friendsListData.size() + " элементов");
     }
@@ -60,16 +60,35 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
         // обработка клика на элементе
         holder.bind(friendsListData.get(position), listener, position);
 
-        // дата рождения друга
-        holder.dateOfBirth.setText(friendsListData.get(position).bdate);
 
         // полное имя друга
-        holder.fullName.setText(friendsListData.get(position).first_name + " " + friendsListData.get(position).last_name);
+        holder.fullName.setText(friendsListData.get(position).getFirstName() + " " + friendsListData.get(position).getLastName());
+
+        // город проживания
+        if (friendsListData.get(position).getCity() != null) {
+            holder.city.setText(friendsListData.get(position).getCity().getTitle());
+        } else holder.city.setVisibility(View.GONE);
+
+        // город рождения
+        if (friendsListData.get(position).getHomeTown() != null) {
+            holder.hometown.setText(" родной город: " + friendsListData.get(position).getHomeTown());
+        } else holder.hometown.setVisibility(View.GONE);
+
+        // дата рождения
+        if (friendsListData.get(position).getBdate() != null) {
+            holder.birthdate.setText(friendsListData.get(position).getBdate());
+        } else holder.birthdate.setVisibility(View.GONE);
+
+        // занятость
+        if (friendsListData.get(position).getOccupation() != null) {
+            holder.occupation.setText(friendsListData.get(position).getOccupation().getName());
+        } else holder.occupation.setVisibility(View.GONE);
+
 
         // аватарка
-        // подгрузка иконки с типом погоды
+        // подгрузка иконки с аватаркой пользователя
         Picasso.with(context)
-                .load(friendsListData.get(position).photo_max_orig)
+                .load(friendsListData.get(position).getPhotoMaxOrig())
                 .into(holder.avatar);
     }
 
@@ -81,18 +100,26 @@ public class FriendsListAdapter extends RecyclerView.Adapter<FriendsListAdapter.
     public static class ViewHolder extends RecyclerView.ViewHolder {
 
         private TextView fullName;
-        private TextView dateOfBirth;
+        private TextView city;
+        private TextView hometown;
+        private TextView birthdate;
+        private TextView occupation;
         private ImageView avatar;
 
         public ViewHolder(View itemView) {
             super(itemView);
+
             fullName = itemView.findViewById(R.id.fullName);
-            dateOfBirth = itemView.findViewById(R.id.dateOfBirth);
+            city = itemView.findViewById(R.id.city);
+            hometown = itemView.findViewById(R.id.hometown);
+            birthdate = itemView.findViewById(R.id.birthdate);
+            occupation = itemView.findViewById(R.id.occupation);
+
             avatar = itemView.findViewById(R.id.imageUserAvatar);
         }
 
         // обработка нажатия на элемент списка
-        public void bind(final VKApiUserFull item, final OnItemClickListener listener, final int position) {
+        public void bind(final UserData item, final OnItemClickListener listener, final int position) {
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

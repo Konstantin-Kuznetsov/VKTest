@@ -16,7 +16,7 @@ import dagger.Component;
  */
 
 @Singleton
-@Component(modules = {AppModule.class, PresentersModule.class})
+@Component(modules = {AppModule.class, PresentersModule.class, UtilsModule.class})
 public interface AppComponent {
 
     void inject(FriendsListPresenter friendslistPresenter);
